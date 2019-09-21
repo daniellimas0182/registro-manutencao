@@ -327,7 +327,7 @@ public class VeiculoServlet extends HttpServlet {
         		"		<a style='float: left; margin-right: 20px; font-weight: bold; font-size: 19px; border-right: 1px solid white'>Gerenciamento de Manutenções</a>" + 
         		"  		<a href='/registro-manutencao/'>Home</a>" + 
         		"  		<a class='active' href='/registro-manutencao/veiculo'>Veículos</a>" + 
-        		"  		<a href='#contact'>Manutenções</a>" + 
+        		"  		<a href='/registro-manutencao/manutencao'>Manutenções</a>" + 
         		"	</div>" +
         		"	<div>" +
         		"	  <h2>Listagem de Veículos</h2>" 
