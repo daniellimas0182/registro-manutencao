@@ -9,9 +9,6 @@ public class VeiculoService {
 	
 	public static List<Veiculo> getVeiculos(HttpServletRequest request) {
 		
-		
-		System.out.println(request.getSession().getAttribute("veiculos"));
-		
 		List<Veiculo> veiculos =  (List<Veiculo>)request.getSession().getAttribute("veiculos");
 		
 		if(veiculos == null) {
@@ -29,4 +26,7 @@ public class VeiculoService {
 		request.getSession().setAttribute("veiculos", veiculos);
 	}
 
+	public static Veiculo getVeiculo(HttpServletRequest request, int index) {
+		return getVeiculos(request).get(index);
+	}
 }

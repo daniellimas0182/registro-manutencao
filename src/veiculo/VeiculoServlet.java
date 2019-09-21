@@ -64,7 +64,7 @@ public class VeiculoServlet extends HttpServlet {
 						"			</td>" +
 						"		</tr>" +
 						"		<tr>"+
-						"			<td colspan='2' align='right'>"+
+						"			<td align='right'>"+
 						"				<input class='button buttongreen' type='submit' value='Salvar'/>"+
 						"			</td>" +
 						"		</tr>" +
@@ -73,7 +73,69 @@ public class VeiculoServlet extends HttpServlet {
 				
 				defaultPage(response, formInicio + opcoes + formFim);
 			}else {
-				response.getWriter().println("Ola marilene");
+				
+				Veiculo veiculo = VeiculoService.getVeiculo(request, Integer.parseInt(id));
+				
+				String formInicio = "<form action='/registro-manutencao/veiculo?id=" + id + "' method='post'>" +
+						"	<table align='center'>"+
+						"		<tr>"+
+						"			<td align='right'>"+
+						"				Descrição:"+
+						"			</td>" +
+						"			<td align='left'>"+
+						"				<input required type='text' name='descricao' value='" + veiculo.getDescricao() + "'/>" +
+						"			</td>" +
+						"		</tr>" +
+						"		<tr>"+
+						"			<td align='right'>"+
+						"				Placa:"+
+						"			</td>" +
+						"			<td align='left'>"+
+						"				<input required type='text' name='placa' value='" + veiculo.getPlaca() + "'/>" +
+						"			</td>" +
+						"		</tr>" +
+						"		<tr>"+
+						"			<td align='right'>"+
+						"				Ano:"+
+						"			</td>" +
+						"			<td align='left'>"+
+						"				<input required type='number' min='0' name='ano' value='" + veiculo.getAno() + "'/>" +
+						"			</td>" +
+						"		</tr>" +
+						"		<tr>"+
+						"			<td align='right'>"+
+						"				Tipo de Veículo:"+
+						"			</td>" +
+						"			<td align='left'>"+
+						"				<select name='tipo'>";
+	        	
+				String opcoes = "";
+	        	for(VeiculoTipo tipo : VeiculoTipo.values()) {
+	        		
+	        		String selecionado = "";
+	        		
+	        		if(tipo == veiculo.getTipo()) {
+	        			selecionado = "selected='selected'";
+	        		}
+	        		
+	        		opcoes += "<option value='" + tipo + "'" + selecionado + ">" + tipo.getDescricao() + "</option>";
+	        	}
+	        	
+	        	String formFim = "		</select> " +  
+						"			</td>" +
+						"		</tr>" +
+						"		<tr>"+
+						"			<td align='right'>"+
+						"				<a href='?id=new' class='button buttonred'>Excluir</a>"+
+						"			</td>" +
+						"			<td align='right'>"+
+						"				<input class='button buttongreen' type='submit' value='Salvar'/>"+
+						"			</td>" +
+						"		</tr>" +
+						"	</table>" +	 
+						"</form>";
+				
+				defaultPage(response, formInicio + opcoes + formFim);
 			}
 			
 		}else { // LIST
@@ -85,7 +147,8 @@ public class VeiculoServlet extends HttpServlet {
 	        			);
 	        }else {
 	        	
-	        	String listagem = 
+	        	String cabecalho = 
+	        			"<a href='?id=new' class='button buttongreen'>Novo Veículo</a><br /><br />" + 
 	        			"<table id='listagem' align='center'>"+
     					"	<tr>"+
 						"		<th>"+
@@ -100,10 +163,39 @@ public class VeiculoServlet extends HttpServlet {
 						"		<th>"+
 						"			Ano" +
 						"		</th>" +
-						"	</tr>" +
-        				"</table>";
+						"		<th>"+
+						"			" +
+						"		</th>" +
+						"	</tr>";
 	        	
-	        	defaultPage(response, listagem);
+	        	
+	        	String listagem = "";
+	        	
+	        	int i = 0;
+	        	for(Veiculo v: veiculos) {
+	        		listagem += 
+							"	<tr>"+
+							"		<td>"+
+										v.getDescricao() +
+							"		</td>" +
+							"		<td>"+
+										v.getPlaca() +
+							"		</td>"  +
+							"		<td>"+
+										v.getTipo().getDescricao() +
+							"		</td>"  +
+							"		<td>"+
+										v.getAno() +
+							"		</td>" +
+							"		<td>"+
+							"			<a href='?id=" + i + "'>Editar</a>" +
+							"		</td>" +
+							"	</tr>";
+	        		i++;
+	        	}
+	        	
+	        	
+	        	defaultPage(response, cabecalho + listagem + "</table>");
 	        }
 	        
 		}
@@ -117,12 +209,20 @@ public class VeiculoServlet extends HttpServlet {
 		if("new".equals(id)) {
 			Veiculo novo = new Veiculo(Integer.parseInt(request.getParameter("ano")), request.getParameter("placa"), VeiculoTipo.valueOf(request.getParameter("tipo")), request.getParameter("descricao"));
 			VeiculoService.addVeiculo(request, novo);
+			
+			response.sendRedirect("/registro-manutencao/veiculo");
 		}else {
 			
+			Veiculo veiculo = VeiculoService.getVeiculo(request, Integer.parseInt(id));
+			
+			veiculo.setAno(Integer.parseInt(request.getParameter("ano")));
+			veiculo.setDescricao(request.getParameter("descricao"));
+			veiculo.setPlaca(request.getParameter("placa"));
+			veiculo.setTipo(VeiculoTipo.valueOf(request.getParameter("tipo")));
+			
+			response.sendRedirect("/registro-manutencao/veiculo");
 		}
 		
-		
-		response.getWriter().println("Eu quero salvar");
 	}
 	
 	private void defaultPage(HttpServletResponse response, String dinamico) throws IOException {
@@ -185,6 +285,17 @@ public class VeiculoServlet extends HttpServlet {
         		""+ 
         		"	.buttongreen:hover {" + 
         		"  		background-color: #4CAF50;" + 
+        		"  		color: white;" + 
+        		"	}"+
+        		""+
+        		"	.buttonred {" + 
+        		"  		background-color: white; " + 
+        		"  		color: black; " + 
+        		"  		border: 2px solid #f44336" + 
+        		"	}" + 
+        		""+ 
+        		"	.buttonred:hover {" + 
+        		"  		background-color: #f44336;" + 
         		"  		color: white;" + 
         		"	}"+
         		""+
