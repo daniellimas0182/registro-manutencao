@@ -29,4 +29,9 @@ public class VeiculoService {
 	public static Veiculo getVeiculo(HttpServletRequest request, int index) {
 		return getVeiculos(request).get(index);
 	}
+	
+	public static void deleteVeiculo(HttpServletRequest request, int index) {
+		getVeiculos(request).remove(index);
+	}
+
 }

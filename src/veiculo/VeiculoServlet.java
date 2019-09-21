@@ -64,7 +64,7 @@ public class VeiculoServlet extends HttpServlet {
 						"			</td>" +
 						"		</tr>" +
 						"		<tr>"+
-						"			<td align='right'>"+
+						"			<td colspan='2' align='right'>"+
 						"				<input class='button buttongreen' type='submit' value='Salvar'/>"+
 						"			</td>" +
 						"		</tr>" +
@@ -72,6 +72,8 @@ public class VeiculoServlet extends HttpServlet {
 						"</form>";
 				
 				defaultPage(response, formInicio + opcoes + formFim);
+			}else if("true".equals(request.getParameter("delete"))){
+				doPost(request, response);
 			}else {
 				
 				Veiculo veiculo = VeiculoService.getVeiculo(request, Integer.parseInt(id));
@@ -126,7 +128,7 @@ public class VeiculoServlet extends HttpServlet {
 						"		</tr>" +
 						"		<tr>"+
 						"			<td align='right'>"+
-						"				<a href='?id=new' class='button buttonred'>Excluir</a>"+
+						"				<a href='/registro-manutencao/veiculo?id=" + id + "&delete=true" + "' class='button buttonred'>Excluir</a>"+
 						"			</td>" +
 						"			<td align='right'>"+
 						"				<input class='button buttongreen' type='submit' value='Salvar'/>"+
@@ -143,7 +145,7 @@ public class VeiculoServlet extends HttpServlet {
 	        List<Veiculo> veiculos = VeiculoService.getVeiculos(request);
 	        if(veiculos.size() == 0) {
 	        	defaultPage(response, 
-	        			"<p>Sem veículos cadastrados. Você pode criar um</p><a href='?id=new' class='button buttongreen'>Novo Veículo</a>"
+	        			"<p>Sem veículos cadastrados.</p><a href='?id=new' class='button buttongreen'>Novo Veículo</a>"
 	        			);
 	        }else {
 	        	
@@ -209,19 +211,21 @@ public class VeiculoServlet extends HttpServlet {
 		if("new".equals(id)) {
 			Veiculo novo = new Veiculo(Integer.parseInt(request.getParameter("ano")), request.getParameter("placa"), VeiculoTipo.valueOf(request.getParameter("tipo")), request.getParameter("descricao"));
 			VeiculoService.addVeiculo(request, novo);
-			
-			response.sendRedirect("/registro-manutencao/veiculo");
 		}else {
 			
-			Veiculo veiculo = VeiculoService.getVeiculo(request, Integer.parseInt(id));
-			
-			veiculo.setAno(Integer.parseInt(request.getParameter("ano")));
-			veiculo.setDescricao(request.getParameter("descricao"));
-			veiculo.setPlaca(request.getParameter("placa"));
-			veiculo.setTipo(VeiculoTipo.valueOf(request.getParameter("tipo")));
-			
-			response.sendRedirect("/registro-manutencao/veiculo");
+			if("true".equals(request.getParameter("delete"))) {
+				VeiculoService.deleteVeiculo(request, Integer.parseInt(id));
+			}else {
+				Veiculo veiculo = VeiculoService.getVeiculo(request, Integer.parseInt(id));
+				
+				veiculo.setAno(Integer.parseInt(request.getParameter("ano")));
+				veiculo.setDescricao(request.getParameter("descricao"));
+				veiculo.setPlaca(request.getParameter("placa"));
+				veiculo.setTipo(VeiculoTipo.valueOf(request.getParameter("tipo")));
+			}
 		}
+		
+		response.sendRedirect("/registro-manutencao/veiculo");
 		
 	}
 	
@@ -233,7 +237,7 @@ public class VeiculoServlet extends HttpServlet {
         		"<html>" + 
         		"<head>" + 
         		"<meta charset='UTF-8'>" + 
-        		"<title>Login</title>" + 
+        		"<title>Registro de Manutenções</title>" + 
         		"<style type='text/css'>" + 
         		"	body {" + 
         		"		margin: 0;" + 
