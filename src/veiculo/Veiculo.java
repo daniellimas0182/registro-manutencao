@@ -1,5 +1,8 @@
 package veiculo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Veiculo {
 	
 	private int ano;
@@ -8,7 +11,6 @@ public class Veiculo {
 	private String descricao;
 	
 	public Veiculo(int ano, String placa, VeiculoTipo tipo, String descricao) {
-		super();
 		this.ano = ano;
 		this.placa = placa;
 		this.tipo = tipo;
@@ -45,5 +47,30 @@ public class Veiculo {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public static class WrapperList {
+		
+		private List<Veiculo> veiculos = new ArrayList<>();
+
+		public List<Veiculo> getVeiculos() {
+			return veiculos;
+		}
+
+		public void setVeiculos(List<Veiculo> veiculos) {
+			this.veiculos = veiculos;
+		}
+		
+		public Veiculo get(int index) {
+			return this.veiculos.get(index);
+		}
+		
+		public void add(Veiculo veiculo) {
+			this.veiculos.add(veiculo);
+		}
+		
+		public void delete(int index) {
+			this.veiculos.remove(index);
+		}
 	}
 }

@@ -35,6 +35,7 @@
   		background-color: #4CAF50;
   		color: white;
 	}
+	
 </style>
 </head>
 <body style="text-align: center">
@@ -42,7 +43,7 @@
 	<div class="topnav">
 		<a style="float: left; margin-right: 20px; font-weight: bold; font-size: 19px; border-right: 1px solid white">Gerenciamento de Manutenções</a>
   		<a class="active" href="/registro-manutencao/">Home</a>
-  		<a href="#news">Veículos</a>
+  		<a href="/registro-manutencao/veiculo">Veículos</a>
   		<a href="#contact">Manutenções</a>
 	</div>
 
