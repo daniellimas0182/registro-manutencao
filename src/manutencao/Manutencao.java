@@ -1,6 +1,9 @@
 package manutencao;
 
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import veiculo.Veiculo;
 
@@ -49,4 +52,30 @@ public class Manutencao {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+public static class WrapperList {
+		
+		private List<Manutencao> manutencoes = new ArrayList<>();
+
+		public List<Manutencao> getManutencoes() { 
+			return manutencoes;
+		}
+
+		public void setVeiculos(List<Manutencao> manutencoes) {
+			this.manutencoes = manutencoes;
+		}
+		
+		public Manutencao get(int index) {
+			return this.manutencoes.get(index);
+		}
+		
+		public void add(Manutencao manutencao) { 
+			this.manutencoes.add(manutencao);
+		}
+		
+		public void delete(int index) {
+			this.manutencoes.remove(index);
+		}
+	}
+	
 }
