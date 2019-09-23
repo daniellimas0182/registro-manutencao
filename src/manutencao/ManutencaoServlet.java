@@ -78,7 +78,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"	</table>" +	 
 						"</form>";
 				
-				defaultPage(response, formInicio + opcoes + formFim);
+				defaultPage(response, "Nova Manutenção", formInicio + opcoes + formFim);
 			}else if("true".equals(request.getParameter("delete"))){
 				doPost(request, response);
 			}else {
@@ -144,14 +144,14 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"	</table>" +	 
 						"</form>";
 				
-				defaultPage(response, formInicio + opcoes + formFim);
+				defaultPage(response, "Edição de Manutenção", formInicio + opcoes + formFim);
 			}
 			
 		}else { // LIST
 			
 	        List<Manutencao> manutencoes = ManutencaoService.getManutencoes(request);
 	        if(manutencoes.size() == 0) {
-	        	defaultPage(response, 
+	        	defaultPage(response, "Listagem de Manutenções",
 	        			"<p>Sem manutenções cadastradas.</p><a href='?id=new' class='button buttongreen'>Nova Manutenção</a>"
 	        			);
 	        }else {
@@ -167,7 +167,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"			Quilometragem" +
 						"		</th>"  +
 						"		<th>"+
-						"			valor" +
+						"			Valor" +
 						"		</th>"  +
 						"		<th>"+
 						"			Veículo" +
@@ -204,7 +204,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	        	}
 	        	
 	        	
-	        	defaultPage(response, cabecalho + listagem + "</table>");
+	        	defaultPage(response, "Listagem de Manutenções", cabecalho + listagem + "</table>");
 	        }
 	        
 		}
@@ -261,7 +261,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		
 	}
 	
-	private void defaultPage(HttpServletResponse response, String dinamico) throws IOException {
+	private void defaultPage(HttpServletResponse response, String titulo, String dinamico) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
         response.getWriter().println(
@@ -364,7 +364,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
         		"  		<a class='active' href='/registro-manutencao/manutencao'>Manutenções</a>" + 
         		"	</div>" +
         		"	<div>" +
-        		"	  <h2>Listagem de Manutenções</h2>" 
+        		"	  <h2>" + titulo + "</h2>" 
         		);
         
         response.getWriter().println(dinamico);

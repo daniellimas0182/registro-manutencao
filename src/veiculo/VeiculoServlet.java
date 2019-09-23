@@ -69,7 +69,7 @@ public class VeiculoServlet extends HttpServlet {
 						"	</table>" +	 
 						"</form>";
 				
-				defaultPage(response, formInicio + opcoes + formFim);
+				defaultPage(response, "Novo Veículo", formInicio + opcoes + formFim);
 			}else if("true".equals(request.getParameter("delete"))){
 				doPost(request, response);
 			}else {
@@ -135,14 +135,14 @@ public class VeiculoServlet extends HttpServlet {
 						"	</table>" +	 
 						"</form>";
 				
-				defaultPage(response, formInicio + opcoes + formFim);
+				defaultPage(response, "Edição de Manutenção", formInicio + opcoes + formFim);
 			}
 			
 		}else { // LIST
 			
 	        List<Veiculo> veiculos = VeiculoService.getVeiculos(request);
 	        if(veiculos.size() == 0) {
-	        	defaultPage(response, 
+	        	defaultPage(response, "Listagem de Veículos",
 	        			"<p>Sem veículos cadastrados.</p><a href='?id=new' class='button buttongreen'>Novo Veículo</a>"
 	        			);
 	        }else {
@@ -195,7 +195,7 @@ public class VeiculoServlet extends HttpServlet {
 	        	}
 	        	
 	        	
-	        	defaultPage(response, cabecalho + listagem + "</table>");
+	        	defaultPage(response, "Listagem de Veículos", cabecalho + listagem + "</table>");
 	        }
 	        
 		}
@@ -229,7 +229,7 @@ public class VeiculoServlet extends HttpServlet {
 		
 	}
 	
-	private void defaultPage(HttpServletResponse response, String dinamico) throws IOException {
+	private void defaultPage(HttpServletResponse response, String titulo, String dinamico) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
         response.getWriter().println(
@@ -332,7 +332,7 @@ public class VeiculoServlet extends HttpServlet {
         		"  		<a href='/registro-manutencao/manutencao'>Manutenções</a>" + 
         		"	</div>" +
         		"	<div>" +
-        		"	  <h2>Listagem de Veículos</h2>" 
+        		"	  <h2>" + titulo + "</h2>" 
         		);
         
         response.getWriter().println(dinamico);
