@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import manutencao.Manutencao;
+import manutencao.ManutencaoService;
 import veiculo.Veiculo;
 import veiculo.VeiculoService;
 
@@ -75,8 +77,65 @@ public class IndexServlet extends HttpServlet {
         	relatorioVeiculos = cabecalho + listagem + total;
 		}
 		
+		List<Manutencao> manutencoes = ManutencaoService.getManutencoes(request);
 		
-		defaultPage(response, relatorioVeiculos);
+		String relatorioManutencoes = "";
+		
+		if(manutencoes.size() == 0) {
+			relatorioManutencoes = "<p>Não existem manutenções registradas</p>";
+		}else {
+			String cabecalho = 
+					"<p>Manutenções Registradas</p>" +
+        			"<table id='listagem' align='center'>"+
+					"	<tr>"+
+					"		<th>"+
+					"			Descrição"+
+					"		</th>" +
+					"		<th>"+
+					"			Quilometragem" +
+					"		</th>"  +
+					"		<th>"+
+					"			Valor" +
+					"		</th>"  +
+					"		<th>"+
+					"			Veículo" +
+					"		</th>" +
+					"	</tr>";
+        	
+        	
+        	String listagem = "";
+        	
+        	for(Manutencao m: manutencoes) {
+        		listagem += 
+						"	<tr>"+
+						"		<td>"+
+									m.getDescricao() +
+						"		</td>" +
+						"		<td>"+
+									m.getQuilometragem() +
+						"		</td>"  +
+						"		<td>"+
+									m.getValor().toString().replaceAll("\\.", ",")+
+						"		</td>"  +
+						"		<td>"+
+									m.getVeiculo().getPlaca() + " - " + m.getVeiculo().getDescricao() +
+						"		</td>" +
+						"	</tr>";
+        	}
+        	
+        	String total = 
+        			"<tr>"+
+					"	<td colspan='4'>"+
+        			"		Total de Manutenções: "+ manutencoes.size() +
+					"	</td>"+
+					"</tr>" +
+					"</table>";
+        	
+        	relatorioManutencoes = cabecalho + listagem + total;
+		}
+		
+		
+		defaultPage(response, relatorioVeiculos + "<br /> <br />" + relatorioManutencoes);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
