@@ -350,7 +350,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
         		"  		<a class='active' href='/registro-manutencao/manutencao'>Manutenções</a>" + 
         		"	</div>" +
         		"	<div>" +
-        		"	  <h2>Listagem de Veículos</h2>" 
+        		"	  <h2>Listagem de Manutenções</h2>" 
         		);
         
         response.getWriter().println(dinamico);
