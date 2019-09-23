@@ -135,7 +135,7 @@ public class VeiculoServlet extends HttpServlet {
 						"	</table>" +	 
 						"</form>";
 				
-				defaultPage(response, "Edição de Manutenção", formInicio + opcoes + formFim);
+				defaultPage(response, "Edição de Veículo", formInicio + opcoes + formFim);
 			}
 			
 		}else { // LIST

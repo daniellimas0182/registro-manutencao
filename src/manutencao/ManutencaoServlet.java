@@ -49,7 +49,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"		</tr>" +
 						"		<tr>"+
 						"			<td align='right'>"+
-						"				Valor:"+
+						"				Valor (R$):"+
 						"			</td>" +
 						"			<td align='left'>"+
 						"				<input required type='number' min='0' step='0.01' name='valor'/>" +
@@ -105,7 +105,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"		</tr>" +
 						"		<tr>"+
 						"			<td align='right'>"+
-						"				Valor:"+
+						"				Valor (R$):"+
 						"			</td>" +
 						"			<td align='left'>"+
 						"				<input required type='number' min='0' name='valor' value='" + manutencao.getValor() + "'/>" +
@@ -167,7 +167,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"			Quilometragem" +
 						"		</th>"  +
 						"		<th>"+
-						"			Valor" +
+						"			Valor (R$)" +
 						"		</th>"  +
 						"		<th>"+
 						"			Veículo" +
