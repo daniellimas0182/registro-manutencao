@@ -213,8 +213,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
+		request.setCharacterEncoding("UTF-8");
 		
+		String id = request.getParameter("id");
 		
 		if ("new".equals(id)) {
 			
