@@ -60,12 +60,12 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"				Veículo:"+
 						"			</td>" +
 						"			<td align='left'>"+
-						"				<select name='veiculo'>";
+						"				<select name='placa' required>";
 	        	
-				String opcoes = "";
+			String opcoes = "";
 	       	for(Veiculo veiculo : VeiculoService.getVeiculos(request)) {
-	       		opcoes += "<option value='" + veiculo + "'>" + veiculo.getPlaca() + "</option>";
-	        	}
+	       		opcoes += "<option value='" + veiculo.getPlaca() + "'>" + veiculo.getPlaca() + " - " + veiculo.getDescricao() + "</option>";
+        	}
 	        	
 	        	String formFim = "		</select> " +  
 						"			</td>" +
@@ -217,17 +217,19 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		
 		
 		if ("new".equals(id)) {
-//			Manutencao novo = new Manutencao(Integer.parseInt(request.getParameter("quilometragem")),request.getParameter("descricao"),
-//			    Veiculo, new BigDecimal(request.getParameter("valor")));
-//			    ManutencaoService.addManutencao(request, novo);
+			
+			String placa = request.getParameter("placa");
+			
+			Veiculo veiculoSelecionado = null;
+			for(Veiculo veiculo : VeiculoService.getVeiculos(request)) {
 
-			for (Veiculo veiculo : VeiculoService.getVeiculos(request)) {
-
-				if (veiculo.equals(veiculo.getPlaca())) {
-//					novo.setVeiculo(veiculo);
+				if(veiculo.getPlaca().equals(placa)) {
+					veiculoSelecionado = veiculo;
 				}
-
 			}
+			
+			Manutencao novo = new Manutencao(veiculoSelecionado, Integer.parseInt(request.getParameter("quilometragem")), new BigDecimal(request.getParameter("valor").replaceAll(",", ".")),request.getParameter("descricao"));
+		    ManutencaoService.addManutencao(request, novo);
 
 		} else {
 
