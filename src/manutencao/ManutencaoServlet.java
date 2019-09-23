@@ -36,7 +36,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"				Quilometragem:"+
 						"			</td>" +
 						"			<td align='left'>"+
-						"				<input required type='text' name='quilometragem'/>" +
+						"				<input required type='number' min='0' name='quilometragem'/>" +
 						"			</td>" +
 						"		</tr>" +
 						"		<tr>"+
@@ -52,7 +52,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"				Valor:"+
 						"			</td>" +
 						"			<td align='left'>"+
-						"				<input required type='number' min='0' name='valor'/>" +
+						"				<input required type='number' min='0' step='0.01' name='valor'/>" +
 						"			</td>" +
 						"		</tr>" +
 						"		<tr>"+
