@@ -217,14 +217,14 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		
 		
 		if ("new".equals(id)) {
-			Manutencao novo = new Manutencao(Integer.parseInt(request.getParameter("quilometragem")),request.getParameter("descricao"),
-			    Veiculo, new BigDecimal(request.getParameter("valor")));
-			    ManutencaoService.addManutencao(request, novo);
+//			Manutencao novo = new Manutencao(Integer.parseInt(request.getParameter("quilometragem")),request.getParameter("descricao"),
+//			    Veiculo, new BigDecimal(request.getParameter("valor")));
+//			    ManutencaoService.addManutencao(request, novo);
 
 			for (Veiculo veiculo : VeiculoService.getVeiculos(request)) {
 
 				if (veiculo.equals(veiculo.getPlaca())) {
-					novo.setVeiculo(veiculo);
+//					novo.setVeiculo(veiculo);
 				}
 
 			}
@@ -239,7 +239,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				manutencao.setQuilometragem(Integer.parseInt(request.getParameter("quilomentragem")));
 				manutencao.setDescricao(request.getParameter("descricao"));
 				manutencao.setValor(new BigDecimal(request.getParameter("valor")));
-				manutencao.setVeiculo("veiculo");
+//				manutencao.setVeiculo("veiculo");
 			}
 		}
 		
@@ -346,8 +346,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
         		"	<div class='topnav'>" + 
         		"		<a style='float: left; margin-right: 20px; font-weight: bold; font-size: 19px; border-right: 1px solid white'>Gerenciamento de Manutenções</a>" + 
         		"  		<a href='/registro-manutencao/'>Home</a>" + 
-        		"  		<a class='active' href='/registro-manutencao/veiculo'>Veículos</a>" + 
-        		"  		<a href='/registro-manutencao/manutencao'>Manutenções</a>" + 
+        		"  		<a href='/registro-manutencao/veiculo'>Veículos</a>" + 
+        		"  		<a class='active' href='/registro-manutencao/manutencao'>Manutenções</a>" + 
         		"	</div>" +
         		"	<div>" +
         		"	  <h2>Listagem de Veículos</h2>" 
