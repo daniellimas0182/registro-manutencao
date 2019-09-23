@@ -62,7 +62,7 @@ public class VeiculoServlet extends HttpServlet {
 						"			</td>" +
 						"		</tr>" +
 						"		<tr>"+
-						"			<td colspan='2' align='right'>"+
+						"			<td colspan='2' align='left'>"+
 						"				<input class='button buttongreen' type='submit' value='Salvar'/>"+
 						"			</td>" +
 						"		</tr>" +
@@ -125,11 +125,11 @@ public class VeiculoServlet extends HttpServlet {
 						"			</td>" +
 						"		</tr>" +
 						"		<tr>"+
-						"			<td align='right'>"+
-						"				<a href='/registro-manutencao/veiculo?id=" + id + "&delete=true" + "' class='button buttonred'>Excluir</a>"+
-						"			</td>" +
-						"			<td align='right'>"+
+						"			<td align='left'>"+
 						"				<input class='button buttongreen' type='submit' value='Salvar'/>"+
+						"			</td>" +
+						"			<td align='left'>"+
+						"				<a href='/registro-manutencao/veiculo?id=" + id + "&delete=true" + "' class='button buttonred'>Excluir</a>"+
 						"			</td>" +
 						"		</tr>" +
 						"	</table>" +	 
