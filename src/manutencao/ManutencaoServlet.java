@@ -152,7 +152,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	        List<Manutencao> manutencoes = ManutencaoService.getManutencoes(request);
 	        if(manutencoes.size() == 0) {
 	        	defaultPage(response, 
-	        			"<p>Sem Manutencoes cadastrados.</p><a href='?id=new' class='button buttongreen'>Nova Manutencao</a>"
+	        			"<p>Sem manutenções cadastradas.</p><a href='?id=new' class='button buttongreen'>Nova Manutenção</a>"
 	        			);
 	        }else {
 	        	
