@@ -41,7 +41,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"		</tr>" +
 						"		<tr>"+
 						"			<td align='right'>"+
-						"				Descricao:"+
+						"				Descrição:"+
 						"			</td>" +
 						"			<td align='left'>"+
 						"				<input required type='text' name='descricao'/>" +
@@ -97,7 +97,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 						"		</tr>" +
 						"		<tr>"+
 						"			<td align='right'>"+
-						"				Descricao:"+
+						"				Descrição:"+
 						"			</td>" +
 						"			<td align='left'>"+
 						"				<input required type='text' name='descricao' value='" + manutencao.getDescricao() + "'/>" +
@@ -157,7 +157,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	        }else {
 	        	
 	        	String cabecalho = 
-	        			"<a href='?id=new' class='button buttongreen'>Nova Manutencao</a><br /><br />" + 
+	        			"<a href='?id=new' class='button buttongreen'>Nova Manutenção</a><br /><br />" + 
 	        			"<table id='listagem' align='center'>"+
     					"	<tr>"+
 						"		<th>"+
@@ -191,10 +191,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 										m.getQuilometragem() +
 							"		</td>"  +
 							"		<td>"+
-							            m.getValor() +
+							            m.getValor().toString().replaceAll("\\.", ",") +
 							"		</td>"  +
 							"		<td>"+
-							            m.getVeiculo()  +
+							            m.getVeiculo().getPlaca() + " - " + m.getVeiculo().getDescricao() +
 							"		</td>" +
 							"		<td>"+
 							"			<a href='?id=" + i + "'>Editar</a>" +
